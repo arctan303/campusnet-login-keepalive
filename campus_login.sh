@@ -7,31 +7,12 @@
 #   ./campus_login.sh pc
 # =====================================================
 
-MODE=${1:-mobile}
-
-BASE_URL="http://1.1.1.1:801/eportal/portal/login"
-
-# ================= 读取配置文件 =================
-
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 CONFIG_FILE="$SCRIPT_DIR/config.sh"
 
-if [ ! -f "$CONFIG_FILE" ]; then
-    echo "错误: 未找到配置文件 config.sh"
-    echo "请先运行 install.sh 或手动创建 config.sh"
-    exit 1
-fi
+# ================= 默认参数 =================
 
-# 加载账号密码
-. "$CONFIG_FILE"
-
-# 基本校验
-if [ -z "$ACCOUNT" ] || [ -z "$PASSWORD" ]; then
-    echo "错误: config.sh 中未正确配置 ACCOUNT 或 PASSWORD"
-    exit 1
-fi
-
-# ================= 模式参数配置 =================
+BASE_URL="http://1.1.1.1:801/eportal/portal/login"
 
 # --- 移动端 / 手机模式 ---
 MOBILE_TYPE="2"
@@ -42,6 +23,26 @@ MOBILE_UA="Mozilla/5.0 (Linux; Android 13; SM-S9080) AppleWebKit/537.36 (KHTML, 
 PC_TYPE="1"
 PC_V="7169"
 PC_UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
+# ================= 读取配置文件 =================
+
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "错误: 未找到配置文件 config.sh"
+    echo "请先运行 install.sh 或手动创建 config.sh"
+    exit 1
+fi
+
+# 加载账号密码和可选配置覆盖
+. "$CONFIG_FILE"
+
+# 基本校验
+if [ -z "$ACCOUNT" ] || [ -z "$PASSWORD" ]; then
+    echo "错误: config.sh 中未正确配置 ACCOUNT 或 PASSWORD"
+    exit 1
+fi
+
+MODE_ARG="$1"
+MODE=${MODE_ARG:-${LOGIN_MODE:-mobile}}
 
 # ================= 逻辑处理 =================
 

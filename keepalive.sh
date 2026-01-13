@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # ================= 配置区域 =================
-# 脚本所在目录 (小米路由器持久化目录)
-SCRIPT_DIR="/data/school_net"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+CONFIG_FILE="$SCRIPT_DIR/config.sh"
 LOGIN_SCRIPT="$SCRIPT_DIR/campus_login.sh"
 LOG_FILE="/tmp/campus_login.log"
 
@@ -20,6 +20,11 @@ CHECK_TARGET="www.baidu.com"
 # 日志最大行数
 MAX_LOG_LINES=1000
 # ===========================================
+
+# 加载可选配置覆盖
+if [ -f "$CONFIG_FILE" ]; then
+    . "$CONFIG_FILE"
+fi
 
 # 日志清理逻辑
 if [ -f "$LOG_FILE" ] && [ $(wc -l < "$LOG_FILE") -gt $MAX_LOG_LINES ]; then
