@@ -9,15 +9,15 @@ BASE_URL="http://1.1.1.1:801/eportal/portal/login"
 # ================= 账号配置 =================
 
 # --- 移动端/手机模式 (推荐, 账号前缀 ,1,) ---
-MOBILE_ACCOUNT=",1,202307124124"
-MOBILE_PASS="123833"
+MOBILE_ACCOUNT=",1,学号"
+MOBILE_PASS="密码"
 MOBILE_TYPE="2"
 MOBILE_V="3387"
 MOBILE_UA="Mozilla/5.0 (Linux; Android 13; SM-S9080) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36"
 
 # --- PC/电脑模式 (账号前缀 ,0,) ---
-PC_ACCOUNT=",0,202307124124"
-PC_PASS="123833"
+PC_ACCOUNT=",0,学号"
+PC_PASS="密码"
 PC_TYPE="1"
 PC_V="7169"
 PC_UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -61,4 +61,5 @@ if echo "$RESULT" | grep -qE '"result":"1"|"success"'; then
     echo ">>> 登录成功！"
 else
     echo ">>> 登录返回: $RESULT"
+
 fi
